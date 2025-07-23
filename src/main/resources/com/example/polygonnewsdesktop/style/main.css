@@ -1,0 +1,140 @@
+.root {
+    -fx-font-family: 'Inter', Arial, sans-serif;
+    -fx-background-color: linear-gradient(to bottom right, #1c2526, #2e3839);
+    -fx-text-fill: #e0e0e0;
+}
+
+.app-bar {
+    -fx-background-color: linear-gradient(to right, #2e3839, #3b4a4c);
+    -fx-padding: 12 20 12 20;
+    -fx-alignment: center-left;
+    -fx-spacing: 24;
+    -fx-border-width: 0 0 1 0;
+    -fx-border-color: #4a5c5e;
+    -fx-effect: dropshadow(gaussian, #00000033, 8, 0, 0, 2);
+}
+
+.app-title {
+    -fx-font-size: 1.8em;
+    -fx-font-family: 'Inter';
+    -fx-text-fill: #5dd5ff;
+    -fx-font-weight: bold;
+    -fx-effect: innershadow(gaussian, #5dd5ff33, 4, 0, 0, 0);
+}
+
+.search-bar {
+    -fx-background-color: #2e3839;
+    -fx-text-fill: #e0e0e0;
+    -fx-border-color: #5dd5ff66;
+    -fx-border-width: 1;
+    -fx-border-radius: 12;
+    -fx-background-radius: 12;
+    -fx-padding: 10 16;
+    -fx-font-size: 1.1em;
+    -fx-prompt-text-fill: #a0a0a0;
+}
+
+.search-bar:focused {
+    -fx-border-color: #5dd5ff;
+    -fx-effect: dropshadow(gaussian, #5dd5ff44, 10, 0, 0, 0);
+}
+
+.floating-toolbar {
+    -fx-background-color: linear-gradient(to bottom, #2e3839ee, #252f30ee);
+    -fx-background-radius: 20;
+    -fx-padding: 10 20;
+    -fx-spacing: 15;
+    -fx-pref-height: 60;
+    -fx-alignment: center;
+    -fx-effect: dropshadow(gaussian, #000000aa, 20, 0.5, 0, 10);
+}
+
+.sidebar-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #e0e0e0;
+    -fx-font-size: 1.4em;
+    -fx-padding: 8 12;
+    -fx-cursor: hand;
+    -fx-background-radius: 8;
+}
+
+.sidebar-button:hover {
+    -fx-background-color: #3b4a4c;
+    -fx-text-fill: #5dd5ff;
+    -fx-effect: dropshadow(gaussian, #5dd5ff44, 10, 0, 0, 0);
+}
+
+.sidebar-button:pressed {
+    -fx-background-color: #2a3638;
+    -fx-effect: innershadow(gaussian, #00000044, 4, 0, 0, 0);
+}
+
+.card {
+    -fx-background-color: linear-gradient(to bottom, #2e3839, #252f30);
+    -fx-background-radius: 20;
+    -fx-padding: 24;
+    -fx-effect: dropshadow(gaussian, #00000066, 10, 0.3, 0, 4);
+    -fx-spacing: 16;
+    -fx-min-width: 360;
+    -fx-max-width: 540;
+}
+
+.card:hover {
+    -fx-effect: dropshadow(gaussian, #5dd5ff99, 25, 0.6, 0, 12);
+    -fx-scale-x: 1.02;
+    -fx-scale-y: 1.02;
+}
+
+.card-title {
+    -fx-font-size: 1.5em;
+    -fx-font-family: 'Oswald';
+    -fx-text-fill: #e0e0e0;
+    -fx-font-weight: bold;
+}
+
+.card-desc {
+    -fx-font-size: 1.1em;
+    -fx-text-fill: #b0b0b0;
+    -fx-wrap-text: true;
+}
+
+.card-meta {
+    -fx-font-size: 0.95em;
+    -fx-text-fill: #5dd5ff;
+}
+
+.card-image {
+    -fx-background-radius: 16 16 0 0;
+    -fx-min-height: 200;
+    -fx-max-height: 240;
+    -fx-alignment: center;
+}
+
+.flat-button {
+    -fx-background-color: #5dd5ff;
+    -fx-text-fill: #1c2526;
+    -fx-font-weight: bold;
+    -fx-background-radius: 10;
+    -fx-padding: 10 20;
+    -fx-purchase: hand;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, #00000033, 6, 0, 0, 2);
+}
+
+.flat-button:hover {
+    -fx-background-color: #4ac1e6;
+    -fx-text-fill: #fff;
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+}
+
+.flat-button:pressed {
+    -fx-background-color: #399db3;
+    -fx-effect: innershadow(gaussian, #00000044, 4, 0, 0, 0);
+}
+
+.scroll-pane > .scroll-bar:horizontal,
+.scroll-pane > .scroll-bar:vertical {
+    -fx-pref-width: 0;
+    -fx-background-color: transparent;
+}
