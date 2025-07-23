@@ -36,6 +36,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashMap;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 
 public class MainController {
     @FXML private Button homeButton;
@@ -230,44 +231,69 @@ public class MainController {
     }
 
     private VBox createArticleCardSkeleton(NewsArticle article) {
-        VBox card = new VBox(8);
-        card.setStyle("-fx-background-color: #e0e0e0; -fx-padding: 16; -fx-background-radius: 8; -fx-effect: dropshadow(gaussian, #ccc, 4, 0, 0, 2);");
+        VBox card = new VBox();
+        card.setStyle("-fx-background-color: white; -fx-background-radius: 8; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10,0,0,3); -fx-pref-width: 350; -fx-max-width: 500; -fx-min-width: 350; -fx-spacing: 0; -fx-padding: 0; -fx-alignment: TOP_CENTER;");
+        card.setPrefWidth(350);
+        card.setMaxWidth(500);
+        card.setMinWidth(350);
+        card.setAlignment(javafx.geometry.Pos.TOP_CENTER);
 
-        // Image placeholder
-        Pane imagePlaceholder = new Pane();
-        imagePlaceholder.setPrefSize(320, 180);
-        imagePlaceholder.setStyle("-fx-background-color: #f0f0f0;");
-        card.getChildren().add(imagePlaceholder);
+        // ImageView with strict containment and centering
+        StackPane imagePane = new StackPane();
+        imagePane.setPrefWidth(350);
+        imagePane.setPrefHeight(350);
+        imagePane.setMaxWidth(350);
+        imagePane.setMaxHeight(350);
+        imagePane.setAlignment(javafx.geometry.Pos.CENTER);
 
-        // Title
+        ImageView imageView = new ImageView();
+        imageView.setFitWidth(350);
+        imageView.setFitHeight(350);
+        imageView.setPreserveRatio(false); // Stretch to fill, crop as needed
+        imageView.setSmooth(true);
+        imageView.setStyle("-fx-background-color: #e0e0e0;");
+        imagePane.getChildren().add(imageView);
+
+        // Clip the StackPane
+        javafx.scene.shape.Rectangle clip = new javafx.scene.shape.Rectangle(350, 350);
+        clip.setArcWidth(16);
+        clip.setArcHeight(16);
+        imagePane.setClip(clip);
+
+        card.getChildren().add(imagePane);
+        card.getProperties().put("imageView", imageView);
+
+        VBox content = new VBox();
+        content.setStyle("-fx-padding: 15; -fx-spacing: 12; -fx-alignment: center;");
+        content.setAlignment(javafx.geometry.Pos.CENTER);
+        content.setPrefWidth(350);
+        content.setMaxWidth(350);
+        content.setMinWidth(350);
+
+        HBox metaBox = new HBox(10);
+        metaBox.setAlignment(javafx.geometry.Pos.CENTER_LEFT);
+        Label category = new Label(article.getSourceName() != null ? article.getSourceName().toUpperCase() : "NEWS");
+        category.setStyle("-fx-font-size: 12; -fx-font-weight: bold; -fx-text-fill: #3498db; -fx-underline: true;");
+        Label dot = new Label("•");
+        dot.setStyle("-fx-text-fill: #bdc3c7;");
+        Label time = new Label(formatTimeAgo(article.getPublishedAt()));
+        time.setStyle("-fx-font-size: 11; -fx-text-fill: #7f8c8d;");
+        metaBox.getChildren().addAll(category, dot, time);
+        content.getChildren().add(metaBox);
+
         Label title = new Label(article.getTitle());
-        title.setStyle("-fx-font-size: 18px; -fx-font-weight: bold;");
+        title.setStyle("-fx-font-size: 18; -fx-font-weight: bold; -fx-text-fill: #2c3e50; -fx-wrap-text: true; -fx-alignment: center-left;");
         title.setWrapText(true);
         title.setMaxWidth(320);
-        card.getChildren().add(title);
+        title.setPrefWidth(320);
+        title.setMinWidth(320);
+        content.getChildren().add(title);
 
-        // Description
-        if (article.getDescription() != null && !article.getDescription().isEmpty()) {
-            Text desc = new Text(article.getDescription());
-            desc.setWrappingWidth(320);
-            card.getChildren().add(desc);
-        }
-
-        // Source and date (formatted)
-        String formattedDate = article.getPublishedAt();
-        try {
-            DateTimeFormatter inputFormatter = DateTimeFormatter.ISO_DATE_TIME;
-            DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("MMM dd, yyyy HH:mm");
-            formattedDate = ZonedDateTime.parse(article.getPublishedAt(), inputFormatter).format(outputFormatter);
-        } catch (Exception e) {
-            // fallback to original string
-        }
-        Label meta = new Label("Source: " + article.getSourceName() + " | " + formattedDate);
-        meta.setStyle("-fx-font-size: 10px; -fx-text-fill: #888;");
-        card.getChildren().add(meta);
-
-        // Read More button
-        Button readMore = new Button("Read More");
+        Button readMore = new Button("READ STORY");
+        readMore.setStyle("-fx-background-color: #2c3e50; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 14; -fx-padding: 10 0; -fx-background-radius: 4; -fx-alignment: center; -fx-cursor: hand; -fx-max-width: 320;");
+        readMore.setMaxWidth(320);
+        readMore.setPrefWidth(320);
+        readMore.setMinWidth(320);
         readMore.setOnAction(e -> {
             try {
                 Desktop.getDesktop().browse(new URI(article.getUrl()));
@@ -275,9 +301,24 @@ public class MainController {
                 ex.printStackTrace();
             }
         });
-        card.getChildren().add(readMore);
+        content.getChildren().add(readMore);
 
+        card.getChildren().add(content);
         return card;
+    }
+
+    // Helper to format time ago (simple version)
+    private String formatTimeAgo(String publishedAt) {
+        try {
+            ZonedDateTime published = ZonedDateTime.parse(publishedAt, DateTimeFormatter.ISO_DATE_TIME);
+            ZonedDateTime now = ZonedDateTime.now();
+            long hours = java.time.Duration.between(published, now).toHours();
+            if (hours < 1) return "Just now";
+            if (hours == 1) return "1h ago";
+            return hours + "h ago";
+        } catch (Exception e) {
+            return "";
+        }
     }
 
     private void loadArticleImageAsync(NewsArticle article, VBox card) {
@@ -287,20 +328,30 @@ public class MainController {
 
         executor.execute(() -> {
             try {
-                System.out.println("Loading image: " + article.getUrlToImage());
-                Image image = new Image(article.getUrlToImage(), 320, 180, true, true, true);
-
+                Image image = new Image(article.getUrlToImage(), false);
                 if (!image.isError()) {
                     Platform.runLater(() -> {
-                        ImageView imageView = new ImageView(image);
-                        // Replace placeholder with actual image
-                        card.getChildren().set(0, imageView);
+                        ImageView imageView = (ImageView) card.getProperties().get("imageView");
+                        if (imageView != null) {
+                            imageView.setImage(image);
+                            imageView.setFitWidth(350);
+                            imageView.setFitHeight(350);
+                            imageView.setPreserveRatio(true);
+
+                            // Calculate viewport for object-fit: cover (zoom to fill, crop as needed)
+                            double cardW = 350, cardH = 350;
+                            double imgW = image.getWidth(), imgH = image.getHeight();
+                            double scale = Math.max(cardW / imgW, cardH / imgH);
+                            double viewportW = cardW / scale;
+                            double viewportH = cardH / scale;
+                            double x = (imgW - viewportW) / 2;
+                            double y = (imgH - viewportH) / 2;
+                            imageView.setViewport(new javafx.geometry.Rectangle2D(x, y, viewportW, viewportH));
+                        }
                     });
-                } else {
-                    System.out.println("Image loading error: " + article.getUrlToImage());
                 }
             } catch (Exception e) {
-                System.out.println("Image load failed for: " + article.getUrlToImage());
+                // handle error
             }
         });
     }

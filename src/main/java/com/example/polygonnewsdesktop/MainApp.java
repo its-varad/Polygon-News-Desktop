@@ -11,9 +11,9 @@ public class MainApp extends Application {
     public void start(Stage stage) throws Exception {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/polygonnewsdesktop/view/main-view.fxml"));
         Parent root = loader.load();
-        Scene scene = new Scene( root,1000, 700);
-        scene.getStylesheets().add(getClass().getResource("/com/example/polygonnewsdesktop/style/main.css").toExternalForm());
+        Scene scene = new Scene(root, 1000, 700);
         stage.setTitle("Polygon News Desktop");
+        stage.getIcons().add(new javafx.scene.image.Image(getClass().getResource("/com/example/polygonnewsdesktop/polygon-news-app.png").toExternalForm()));
         stage.setScene(scene);
         stage.show();
     }

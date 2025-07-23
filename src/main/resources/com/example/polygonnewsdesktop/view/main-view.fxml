@@ -1,87 +1,129 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-<?import javafx.geometry.Insets?>
 
-<BorderPane xmlns="http://javafx.com/javafx/17.0.12"
-            xmlns:fx="http://javafx.com/fxml/1"
+<BorderPane prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.example.polygonnewsdesktop.Controller.MainController"
-            stylesheets="@style.css"
-            prefHeight="600.0" prefWidth="900.0">
+            style="-fx-font-family: Arial, sans-serif; -fx-background: #f0f2f5;">
 
    <!-- Top: App Bar -->
    <top>
-      <HBox style="-fx-background-color: #2c3e50; -fx-padding: 12 20;" alignment="CENTER_LEFT">
-         <!-- Logo and Title -->
+      <HBox alignment="CENTER" style="-fx-background-color: #2c3e50; -fx-padding: 12 20;">
          <HBox alignment="CENTER_LEFT" spacing="10">
-            <Label text="📰" style="-fx-font-size: 24; -fx-text-fill: white;"/>
-            <Label text="POLYGON NEWS" style="-fx-font-size: 18; -fx-font-weight: bold; -fx-text-fill: white;"/>
+            <ImageView fitHeight="32" fitWidth="32">
+                <image>
+                    <Image url="@../polygon-news-app.png" />
+                </image>
+            </ImageView>
+            <Label style="-fx-font-size: 18; -fx-font-weight: bold; -fx-text-fill: white;" text="POLYGON NEWS" />
          </HBox>
-
-         <!-- Spacer -->
-         <Region HBox.hgrow="ALWAYS"/>
-
-         <!-- Navigation -->
+         <Region HBox.hgrow="ALWAYS" />
          <HBox alignment="CENTER" spacing="15">
-            <Button fx:id="homeButton" text="Home" styleClass="nav-button"/>
-            <Button fx:id="businessButton" text="Business" styleClass="nav-button"/>
-            <Button fx:id="worldButton" text="World" styleClass="nav-button"/>
-            <Button fx:id="healthButton" text="Health" styleClass="nav-button"/>
-            <Button fx:id="sportsButton" text="Sports" styleClass="nav-button"/>
+            <Button fx:id="homeButton" text="Home"
+                    style="-fx-background-color: transparent; -fx-text-fill: #ecf0f1; -fx-font-weight: 600; -fx-font-size: 14px; -fx-padding: 6 12; -fx-cursor: hand; -fx-background-radius: 4;"/>
+            <Button fx:id="businessButton" text="Business"
+                    style="-fx-background-color: transparent; -fx-text-fill: #ecf0f1; -fx-font-weight: 600; -fx-font-size: 14px; -fx-padding: 6 12; -fx-cursor: hand; -fx-background-radius: 4;"/>
+            <Button fx:id="worldButton" text="World"
+                    style="-fx-background-color: transparent; -fx-text-fill: #ecf0f1; -fx-font-weight: 600; -fx-font-size: 14px; -fx-padding: 6 12; -fx-cursor: hand; -fx-background-radius: 4;"/>
+            <Button fx:id="healthButton" text="Health"
+                    style="-fx-background-color: transparent; -fx-text-fill: #ecf0f1; -fx-font-weight: 600; -fx-font-size: 14px; -fx-padding: 6 12; -fx-cursor: hand; -fx-background-radius: 4;"/>
+            <Button fx:id="sportsButton" text="Sports"
+                    style="-fx-background-color: transparent; -fx-text-fill: #ecf0f1; -fx-font-weight: 600; -fx-font-size: 14px; -fx-padding: 6 12; -fx-cursor: hand; -fx-background-radius: 4;"/>
          </HBox>
-
-         <!-- Spacer -->
-         <Region HBox.hgrow="ALWAYS"/>
-
-         <!-- Search and Actions -->
+         <Region HBox.hgrow="ALWAYS" />
          <HBox alignment="CENTER_RIGHT" spacing="10">
-            <TextField fx:id="searchField" promptText="Search news..."
-                       styleClass="search-field" prefWidth="200"/>
-            <Button fx:id="clearSearchButton" text="✖" styleClass="icon-button"/>
-            <Button fx:id="refreshButton" text="⟳" styleClass="flat-button">
-                <tooltip>
-                    <Tooltip text="Refresh news" />
-                </tooltip>
+            <TextField fx:id="searchField" prefWidth="200" promptText="Search news..."
+                       style="-fx-background-color: #34495e; -fx-background-radius: 20; -fx-padding: 7 15; -fx-text-fill: white; -fx-prompt-text-fill: #bdc3c7; -fx-font-size: 14px;"/>
+            <Button fx:id="clearSearchButton" text="✖"
+                    style="-fx-background-color: #34495e; -fx-text-fill: white; -fx-min-width: 30px; -fx-min-height: 30px; -fx-background-radius: 15; -fx-cursor: hand; -fx-font-size: 14px;"/>
+            <Button fx:id="refreshButton" text="⟳"
+                    style="-fx-background-color: #34495e; -fx-text-fill: white; -fx-min-width: 30px; -fx-min-height: 30px; -fx-background-radius: 15; -fx-cursor: hand; -fx-font-size: 14px;">
+               <tooltip>
+                  <Tooltip text="Refresh news" />
+               </tooltip>
             </Button>
          </HBox>
       </HBox>
    </top>
 
-   <!-- Center: News Content -->
+   <!-- Center: Poster-style News Articles -->
    <center>
-      <ScrollPane fitToWidth="true" hbarPolicy="NEVER">
-         <VBox fx:id="newsContainer" spacing="15" style="-fx-padding: 15;">
-            <!-- Sample News Card for preview -->
-            <VBox style="-fx-background-color: white; -fx-background-radius: 8; -fx-padding: 15; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 8,0,0,2);">
-               <Label text="Sample News Title" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
-               <Label text="This is a sample news summary to demonstrate how articles will appear in the application."
-                      style="-fx-font-size: 14px; -fx-text-fill: #7f8c8d; -fx-padding: 5 0 10 0;"/>
-               <HBox alignment="CENTER_RIGHT">
-                  <Label text="Read more →" style="-fx-text-fill: #3498db; -fx-font-weight: bold;"/>
-               </HBox>
+      <ScrollPane fitToWidth="true" hbarPolicy="NEVER" pannable="true"
+                  style="-fx-background: #f0f2f5; -fx-background-color: transparent;">
+         <VBox fx:id="newsContainer" alignment="TOP_CENTER" spacing="20" style="-fx-padding: 20;">
+            <!-- Sample Poster Card 1 -->
+            <VBox style="-fx-background-color: white; -fx-background-radius: 8; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10,0,0,3); -fx-max-width: 250px; -fx-spacing: 0; -fx-padding: 0;">
+               <ImageView fitHeight="350" fitWidth="250" preserveRatio="true" smooth="false" style="-fx-background-color: #e0e0e0;">
+                  <VBox.margin>
+                     <Insets />
+                  </VBox.margin>
+               </ImageView>
+               <VBox style="-fx-padding: 15px; -fx-spacing: 12px;">
+                  <HBox  spacing="10">
+                     <Label style="-fx-font-size: 12px; -fx-font-weight: bold; -fx-text-fill: #3498db; -fx-underline: true;" text="TECH" />
+                     <Label style="-fx-text-fill: #bdc3c7;" text="•" />
+                     <Label style="-fx-font-size: 11px; -fx-text-fill: #7f8c8d;" text="3h ago" />
+                  </HBox>
+                  <Label style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #2c3e50; -fx-wrap-text: true; -fx-alignment: center-left;"
+                         text="AI Revolution: Transforming Industries" />
+                  <Button style="-fx-background-color: #2c3e50; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 14px; -fx-padding: 10 0; -fx-background-radius: 4; -fx-alignment: center; -fx-max-width: infinity; -fx-cursor: hand;"
+                          text="READ STORY" />
+               </VBox>
             </VBox>
 
-            <!-- Second sample card -->
-            <VBox style="-fx-background-color: white; -fx-background-radius: 8; -fx-padding: 15; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 8,0,0,2);">
-               <Label text="Breaking News Story" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
-               <Label text="This demonstrates how multiple articles will appear in the application."
-                      style="-fx-font-size: 14px; -fx-text-fill: #7f8c8d; -fx-padding: 5 0 10 0;"/>
-               <HBox alignment="CENTER_RIGHT">
-                  <Label text="Read more →" style="-fx-text-fill: #3498db; -fx-font-weight: bold;"/>
-               </HBox>
+            <!-- Sample Poster Card 2 -->
+            <VBox style="-fx-background-color: white; -fx-background-radius: 8; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10,0,0,3); -fx-max-width: 250px; -fx-spacing: 0; -fx-padding: 0;">
+               <ImageView fitHeight="350" fitWidth="250" preserveRatio="true" style="-fx-background-color: #e0e0e0;" />
+               <VBox style="-fx-padding: 15px; -fx-spacing: 12px;">
+                  <HBox spacing="10">
+                     <Label style="-fx-font-size: 12px; -fx-font-weight: bold; -fx-text-fill: #3498db; -fx-underline: true;" text="ECON" />
+                     <Label style="-fx-text-fill: #bdc3c7;" text="•" />
+                     <Label style="-fx-font-size: 11px; -fx-text-fill: #7f8c8d;" text="5h ago" />
+                  </HBox>
+                  <Label style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #2c3e50; -fx-wrap-text: true; -fx-alignment: center-left;"
+                         text="Global Markets Respond to Policy Shifts" />
+                  <Button style="-fx-background-color: #2c3e50; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 14px; -fx-padding: 10 0; -fx-background-radius: 4; -fx-alignment: center; -fx-max-width: infinity; -fx-cursor: hand;"
+                          text="READ STORY" />
+               </VBox>
+            </VBox>
+
+            <!-- Sample Poster Card 3 -->
+            <VBox style="-fx-background-color: white; -fx-background-radius: 8; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10,0,0,3); -fx-max-width: 250px; -fx-spacing: 0; -fx-padding: 0;">
+               <ImageView fitHeight="350" fitWidth="250" preserveRatio="true" style="-fx-background-color: #e0e0e0;" />
+               <VBox style="-fx-padding: 15px; -fx-spacing: 12px;">
+                  <HBox  spacing="10">
+                     <Label style="-fx-font-size: 12px; -fx-font-weight: bold; -fx-text-fill: #3498db; -fx-underline: true;" text="HEALTH" />
+                     <Label style="-fx-text-fill: #bdc3c7;" text="•" />
+                     <Label style="-fx-font-size: 11px; -fx-text-fill: #7f8c8d;" text="7h ago" />
+                  </HBox>
+                  <Label style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #2c3e50; -fx-wrap-text: true; -fx-alignment: center-left;"
+                         text="Breakthrough in Cancer Research" />
+                  <Button style="-fx-background-color: #2c3e50; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 14px; -fx-padding: 10 0; -fx-background-radius: 4; -fx-alignment: center; -fx-max-width: infinity; -fx-cursor: hand;"
+                          text="READ STORY" />
+               </VBox>
+            </VBox>
+
+            <!-- Sample Poster Card 4 -->
+            <VBox style="-fx-background-color: white; -fx-background-radius: 8; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10,0,0,3); -fx-max-width: 250px; -fx-spacing: 0; -fx-padding: 0;">
+               <ImageView fitHeight="350" fitWidth="250" preserveRatio="true" style="-fx-background-color: #e0e0e0;" />
+               <VBox style="-fx-padding: 15px; -fx-spacing: 12px;">
+                  <HBox spacing="10">
+                     <Label style="-fx-font-size: 12px; -fx-font-weight: bold; -fx-text-fill: #3498db; -fx-underline: true;" text="SPORTS" />
+                     <Label style="-fx-text-fill: #bdc3c7;" text="•" />
+                     <Label style="-fx-font-size: 11px; -fx-text-fill: #7f8c8d;" text="2h ago" />
+                  </HBox>
+                  <Label style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #2c3e50; -fx-wrap-text: true; -fx-alignment: center-left;"
+                         text="Olympic Gold Medalist Sets New World Record" />
+                  <Button style="-fx-background-color: #2c3e50; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 14px; -fx-padding: 10 0; -fx-background-radius: 4; -fx-alignment: center; -fx-max-width: infinity; -fx-cursor: hand;"
+                          text="READ STORY" />
+               </VBox>
             </VBox>
          </VBox>
       </ScrollPane>
    </center>
 
-   <!-- Bottom: Status Bar -->
-   <bottom>
-      <HBox alignment="CENTER" style="-fx-background-color: #ecf0f1; -fx-padding: 8 15;">
-         <Label text="© 2023 Polygon News • All rights reserved" style="-fx-text-fill: #7f8c8d; -fx-font-size: 12;"/>
-         <Region HBox.hgrow="ALWAYS"/>
-         <Label text="Daily Edition" style="-fx-text-fill: #3498db; -fx-font-weight: bold; -fx-font-size: 12;"/>
-      </HBox>
-   </bottom>
 </BorderPane>
