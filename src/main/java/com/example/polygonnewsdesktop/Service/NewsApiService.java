@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class NewsApiService {
-    private static final String API_KEY="32544ba30a0646519745275e8b0ddda7";
+    private static final String API_KEY="";
     private static final String BASE_URL="https://newsapi.org/v2/top-headlines";
 
     public List<NewsArticle> fetchNews(String q,
