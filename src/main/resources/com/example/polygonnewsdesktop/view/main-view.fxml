@@ -1,14 +1,87 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
 
+<BorderPane xmlns="http://javafx.com/javafx/17.0.12"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.example.polygonnewsdesktop.Controller.MainController"
+            stylesheets="@style.css"
+            prefHeight="600.0" prefWidth="900.0">
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <VBox prefHeight="400.0" prefWidth="600.0">
-         <children>
-            <HBox prefHeight="100.0" prefWidth="200.0" />
-         </children>
-      </VBox>
-   </children>
-</Pane>
+   <!-- Top: App Bar -->
+   <top>
+      <HBox style="-fx-background-color: #2c3e50; -fx-padding: 12 20;" alignment="CENTER_LEFT">
+         <!-- Logo and Title -->
+         <HBox alignment="CENTER_LEFT" spacing="10">
+            <Label text="📰" style="-fx-font-size: 24; -fx-text-fill: white;"/>
+            <Label text="POLYGON NEWS" style="-fx-font-size: 18; -fx-font-weight: bold; -fx-text-fill: white;"/>
+         </HBox>
+
+         <!-- Spacer -->
+         <Region HBox.hgrow="ALWAYS"/>
+
+         <!-- Navigation -->
+         <HBox alignment="CENTER" spacing="15">
+            <Button fx:id="homeButton" text="Home" styleClass="nav-button"/>
+            <Button fx:id="businessButton" text="Business" styleClass="nav-button"/>
+            <Button fx:id="worldButton" text="World" styleClass="nav-button"/>
+            <Button fx:id="healthButton" text="Health" styleClass="nav-button"/>
+            <Button fx:id="sportsButton" text="Sports" styleClass="nav-button"/>
+         </HBox>
+
+         <!-- Spacer -->
+         <Region HBox.hgrow="ALWAYS"/>
+
+         <!-- Search and Actions -->
+         <HBox alignment="CENTER_RIGHT" spacing="10">
+            <TextField fx:id="searchField" promptText="Search news..."
+                       styleClass="search-field" prefWidth="200"/>
+            <Button fx:id="clearSearchButton" text="✖" styleClass="icon-button"/>
+            <Button fx:id="refreshButton" text="⟳" styleClass="flat-button">
+                <tooltip>
+                    <Tooltip text="Refresh news" />
+                </tooltip>
+            </Button>
+         </HBox>
+      </HBox>
+   </top>
+
+   <!-- Center: News Content -->
+   <center>
+      <ScrollPane fitToWidth="true" hbarPolicy="NEVER">
+         <VBox fx:id="newsContainer" spacing="15" style="-fx-padding: 15;">
+            <!-- Sample News Card for preview -->
+            <VBox style="-fx-background-color: white; -fx-background-radius: 8; -fx-padding: 15; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 8,0,0,2);">
+               <Label text="Sample News Title" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+               <Label text="This is a sample news summary to demonstrate how articles will appear in the application."
+                      style="-fx-font-size: 14px; -fx-text-fill: #7f8c8d; -fx-padding: 5 0 10 0;"/>
+               <HBox alignment="CENTER_RIGHT">
+                  <Label text="Read more →" style="-fx-text-fill: #3498db; -fx-font-weight: bold;"/>
+               </HBox>
+            </VBox>
+
+            <!-- Second sample card -->
+            <VBox style="-fx-background-color: white; -fx-background-radius: 8; -fx-padding: 15; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 8,0,0,2);">
+               <Label text="Breaking News Story" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+               <Label text="This demonstrates how multiple articles will appear in the application."
+                      style="-fx-font-size: 14px; -fx-text-fill: #7f8c8d; -fx-padding: 5 0 10 0;"/>
+               <HBox alignment="CENTER_RIGHT">
+                  <Label text="Read more →" style="-fx-text-fill: #3498db; -fx-font-weight: bold;"/>
+               </HBox>
+            </VBox>
+         </VBox>
+      </ScrollPane>
+   </center>
+
+   <!-- Bottom: Status Bar -->
+   <bottom>
+      <HBox alignment="CENTER" style="-fx-background-color: #ecf0f1; -fx-padding: 8 15;">
+         <Label text="© 2023 Polygon News • All rights reserved" style="-fx-text-fill: #7f8c8d; -fx-font-size: 12;"/>
+         <Region HBox.hgrow="ALWAYS"/>
+         <Label text="Daily Edition" style="-fx-text-fill: #3498db; -fx-font-weight: bold; -fx-font-size: 12;"/>
+      </HBox>
+   </bottom>
+</BorderPane>
